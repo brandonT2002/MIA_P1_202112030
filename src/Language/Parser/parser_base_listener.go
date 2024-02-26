@@ -44,3 +44,63 @@ func (s *BaseParserListener) EnterExecute(ctx *ExecuteContext) {}
 
 // ExitExecute is called when production execute is exited.
 func (s *BaseParserListener) ExitExecute(ctx *ExecuteContext) {}
+
+// EnterMkdisk is called when production mkdisk is entered.
+func (s *BaseParserListener) EnterMkdisk(ctx *MkdiskContext) {}
+
+// ExitMkdisk is called when production mkdisk is exited.
+func (s *BaseParserListener) ExitMkdisk(ctx *MkdiskContext) {}
+
+// EnterMkdiskparams is called when production mkdiskparams is entered.
+func (s *BaseParserListener) EnterMkdiskparams(ctx *MkdiskparamsContext) {}
+
+// ExitMkdiskparams is called when production mkdiskparams is exited.
+func (s *BaseParserListener) ExitMkdiskparams(ctx *MkdiskparamsContext) {}
+
+// EnterMkdiskparam is called when production mkdiskparam is entered.
+func (s *BaseParserListener) EnterMkdiskparam(ctx *MkdiskparamContext) {}
+
+// ExitMkdiskparam is called when production mkdiskparam is exited.
+func (s *BaseParserListener) ExitMkdiskparam(ctx *MkdiskparamContext) {}
+
+// EnterRmdisk is called when production rmdisk is entered.
+func (s *BaseParserListener) EnterRmdisk(ctx *RmdiskContext) {}
+
+// ExitRmdisk is called when production rmdisk is exited.
+func (s *BaseParserListener) ExitRmdisk(ctx *RmdiskContext) {}
+
+// EnterRep is called when production rep is entered.
+func (s *BaseParserListener) EnterRep(ctx *RepContext) {}
+
+// ExitRep is called when production rep is exited.
+func (s *BaseParserListener) ExitRep(ctx *RepContext) {}
+
+// EnterRepparams is called when production repparams is entered.
+func (s *BaseParserListener) EnterRepparams(ctx *RepparamsContext) {}
+
+// ExitRepparams is called when production repparams is exited.
+func (s *BaseParserListener) ExitRepparams(ctx *RepparamsContext) {}
+
+// EnterRepparam is called when production repparam is entered.
+func (s *BaseParserListener) EnterRepparam(ctx *RepparamContext) {}
+
+// ExitRepparam is called when production repparam is exited.
+func (s *BaseParserListener) ExitRepparam(ctx *RepparamContext) {}
+
+// EnterName is called when production name is entered.
+func (s *BaseParserListener) EnterName(ctx *NameContext) {}
+
+// ExitName is called when production name is exited.
+func (s *BaseParserListener) ExitName(ctx *NameContext) {}
+
+// EnterCommentary is called when production commentary is entered.
+func (s *BaseParserListener) EnterCommentary(ctx *CommentaryContext) {}
+
+// ExitCommentary is called when production commentary is exited.
+func (s *BaseParserListener) ExitCommentary(ctx *CommentaryContext) {}
+
+// EnterExit is called when production exit is entered.
+func (s *BaseParserListener) EnterExit(ctx *ExitContext) {}
+
+// ExitExit is called when production exit is exited.
+func (s *BaseParserListener) ExitExit(ctx *ExitContext) {}

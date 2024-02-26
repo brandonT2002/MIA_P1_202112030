@@ -22,7 +22,7 @@ func NewMIAErrorListener() *MIAErrorListener {
 func (c *MIAErrorListener) SyntaxError(recognizer antlr.Recognizer, offendingSymbol interface{}, line, column int, msg string, e antlr.RecognitionException) {
 	c.Errors = append(c.Errors, &CustomSyntaxError{
 		Line:   line,
-		Column: column,
+		Column: column + 1,
 		Msg:    msg,
 	})
 }

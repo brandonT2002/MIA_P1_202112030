@@ -7,7 +7,7 @@ import (
 
 type MIAListener struct {
 	*parser.BaseParserListener
-	Code []interfaces.Command
+	Execute []interfaces.Command
 }
 
 func NewMIAListener() *MIAListener {
@@ -15,5 +15,5 @@ func NewMIAListener() *MIAListener {
 }
 
 func (l *MIAListener) ExitInit(ctx *parser.InitContext) {
-	l.Code = ctx.GetResult()
+	l.Execute = ctx.GetResult()
 }
