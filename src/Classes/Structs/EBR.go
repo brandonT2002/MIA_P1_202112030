@@ -16,6 +16,10 @@ type EBR struct {
 	Name  string // 16 bytes
 } // 30 bytes
 
+func NewEBR() *EBR {
+	return &EBR{}
+}
+
 func (e *EBR) Encode() []byte {
 	var buf bytes.Buffer
 	// Mount
