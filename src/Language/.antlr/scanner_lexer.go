@@ -50,8 +50,8 @@ func scannerLexerInit() {
 		"'loss'", "'execute'", "'rep'", "'exit'", "'mbr'", "'disk'", "'inode'",
 		"'journaling'", "'block'", "'bm_inode'", "'bm_block'", "'tree'", "'sb'",
 		"'file'", "'ls'", "'full'", "", "", "", "", "", "", "", "", "", "",
-		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "'='",
-		"", "", "", "'\\n'",
+		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+		"'='", "", "", "'\\n'",
 	}
 	staticData.SymbolicNames = []string{
 		"", "RW_mkdisk", "RW_rmdisk", "RW_fdisk", "RW_mount", "RW_unmount",
@@ -64,8 +64,8 @@ func scannerLexerInit() {
 		"RW_full", "RW_size", "RW_fit", "RW_unit", "RW_driveletter", "RW_name",
 		"RW_type", "RW_delete", "RW_add", "RW_id", "RW_fs", "RW_user", "RW_pass",
 		"RW_grp", "RW_path", "RW_r", "RW_cont", "RW_fileN", "RW_destino", "RW_ugo",
-		"RW_ruta", "TK_fit", "TK_unit", "TK_type", "TK_fs", "TK_number", "TK_path",
-		"TK_equ", "TK_sym", "TK_id", "COMMENTARY", "NEWLINE", "UNUSED_",
+		"RW_ruta", "TK_fit", "TK_unit", "TK_type", "TK_fs", "TK_number", "TK_id",
+		"TK_path", "TK_equ", "TK_sym", "COMMENTARY", "NEWLINE", "UNUSED_",
 	}
 	staticData.RuleNames = []string{
 		"UNUSED", "CONTENT", "STRING", "INTEGER", "EXT", "ID1", "ID2", "COMMENTS",
@@ -79,8 +79,8 @@ func scannerLexerInit() {
 		"RW_full", "RW_size", "RW_fit", "RW_unit", "RW_driveletter", "RW_name",
 		"RW_type", "RW_delete", "RW_add", "RW_id", "RW_fs", "RW_user", "RW_pass",
 		"RW_grp", "RW_path", "RW_r", "RW_cont", "RW_fileN", "RW_destino", "RW_ugo",
-		"RW_ruta", "TK_fit", "TK_unit", "TK_type", "TK_fs", "TK_number", "TK_path",
-		"TK_equ", "TK_sym", "TK_id", "COMMENTARY", "NEWLINE", "UNUSED_",
+		"RW_ruta", "TK_fit", "TK_unit", "TK_type", "TK_fs", "TK_number", "TK_id",
+		"TK_path", "TK_equ", "TK_sym", "COMMENTARY", "NEWLINE", "UNUSED_",
 	}
 	staticData.PredictionContextCache = antlr.NewPredictionContextCache()
 	staticData.serializedATN = []int32{
@@ -436,15 +436,15 @@ func scannerLexerInit() {
 		0, 0, 773, 774, 7, 13, 0, 0, 774, 779, 7, 11, 0, 0, 775, 776, 5, 51, 0,
 		0, 776, 777, 7, 13, 0, 0, 777, 779, 7, 11, 0, 0, 778, 772, 1, 0, 0, 0,
 		778, 775, 1, 0, 0, 0, 779, 150, 1, 0, 0, 0, 780, 781, 3, 7, 3, 0, 781,
-		152, 1, 0, 0, 0, 782, 783, 3, 17, 8, 0, 783, 154, 1, 0, 0, 0, 784, 785,
-		5, 61, 0, 0, 785, 156, 1, 0, 0, 0, 786, 787, 7, 35, 0, 0, 787, 158, 1,
-		0, 0, 0, 788, 789, 3, 9, 4, 0, 789, 160, 1, 0, 0, 0, 790, 791, 3, 15, 7,
-		0, 791, 162, 1, 0, 0, 0, 792, 793, 5, 10, 0, 0, 793, 794, 1, 0, 0, 0, 794,
-		795, 6, 81, 0, 0, 795, 164, 1, 0, 0, 0, 796, 797, 3, 1, 0, 0, 797, 798,
-		1, 0, 0, 0, 798, 799, 6, 82, 0, 0, 799, 166, 1, 0, 0, 0, 41, 0, 170, 175,
-		181, 187, 192, 197, 202, 208, 215, 221, 226, 232, 236, 242, 247, 253, 257,
-		262, 521, 533, 544, 556, 575, 587, 599, 613, 624, 634, 644, 656, 668, 679,
-		691, 700, 712, 726, 741, 752, 766, 778, 1, 6, 0, 0,
+		152, 1, 0, 0, 0, 782, 783, 3, 9, 4, 0, 783, 154, 1, 0, 0, 0, 784, 785,
+		3, 17, 8, 0, 785, 156, 1, 0, 0, 0, 786, 787, 5, 61, 0, 0, 787, 158, 1,
+		0, 0, 0, 788, 789, 7, 35, 0, 0, 789, 160, 1, 0, 0, 0, 790, 791, 3, 15,
+		7, 0, 791, 162, 1, 0, 0, 0, 792, 793, 5, 10, 0, 0, 793, 794, 1, 0, 0, 0,
+		794, 795, 6, 81, 0, 0, 795, 164, 1, 0, 0, 0, 796, 797, 3, 1, 0, 0, 797,
+		798, 1, 0, 0, 0, 798, 799, 6, 82, 0, 0, 799, 166, 1, 0, 0, 0, 41, 0, 170,
+		175, 181, 187, 192, 197, 202, 208, 215, 221, 226, 232, 236, 242, 247, 253,
+		257, 262, 521, 533, 544, 556, 575, 587, 599, 613, 624, 634, 644, 656, 668,
+		679, 691, 700, 712, 726, 741, 752, 766, 778, 1, 6, 0, 0,
 	}
 	deserializer := antlr.NewATNDeserializer(nil)
 	staticData.atn = deserializer.Deserialize(staticData.serializedATN)
@@ -552,10 +552,10 @@ const (
 	ScannerTK_type        = 65
 	ScannerTK_fs          = 66
 	ScannerTK_number      = 67
-	ScannerTK_path        = 68
-	ScannerTK_equ         = 69
-	ScannerTK_sym         = 70
-	ScannerTK_id          = 71
+	ScannerTK_id          = 68
+	ScannerTK_path        = 69
+	ScannerTK_equ         = 70
+	ScannerTK_sym         = 71
 	ScannerCOMMENTARY     = 72
 	ScannerNEWLINE        = 73
 	ScannerUNUSED_        = 74

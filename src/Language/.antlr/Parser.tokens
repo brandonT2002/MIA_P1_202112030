@@ -66,9 +66,9 @@ TK_type=65
 TK_fs=66
 TK_number=67
 TK_path=68
-TK_equ=69
-TK_sym=70
-TK_id=71
+TK_id=69
+TK_equ=70
+TK_sym=71
 COMMENTARY=72
 NEWLINE=73
 UNUSED_=74
@@ -114,5 +114,5 @@ UNUSED_=74
 'file'=40
 'ls'=41
 'full'=42
-'='=69
+'='=70
 '\n'=73
