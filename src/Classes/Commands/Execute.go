@@ -19,7 +19,7 @@ type Execute struct {
 	Parser CallParser
 }
 
-func NewExecute(params map[string]string, line, column int) *Execute {
+func NewExecute(line, column int, params map[string]string) *Execute {
 	return &Execute{Params: params, Type: utils.EXECUTE, Line: line, Column: column}
 }
 

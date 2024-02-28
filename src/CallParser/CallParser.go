@@ -1,6 +1,7 @@
 package callparser
 
 import (
+	"fmt"
 	commands "mia/Classes/Commands"
 	utils "mia/Classes/Utils"
 	listener "mia/Language"
@@ -26,30 +27,30 @@ func (c *CallParser) ExecutionParser(input string) {
 	var listener *listener.MIAListener = listener.NewMIAListener()
 	antlr.ParseTreeWalkerDefault.Walk(listener, tree)
 
-	/*func() {
+	func() {
 		defer func() {
 			if r := recover(); r != nil {
 				fmt.Println("\033[31m-> Ha ocurrido un error en la línea de comandos.\033[0m")
 			}
 		}()
-	}()*/
+	}()
 
-	/*for _, fail := range parserErrors.Errors {
+	for _, fail := range parserErrors.Errors {
 		fmt.Printf("\033[31m-> %s. [%v:%v]\033[0m\n", fail.Msg, fail.Line, fail.Column+1)
-	}*/
+	}
 
 	for _, cmd := range listener.Execute {
-		/*func() {
-		defer func() {
-			if r := recover(); r != nil {
-				fmt.Println(cmd.GetType())
-				fmt.Printf("\033[31m-> %s. [%v:%v]\033[0m\n", fmt.Sprintf("%v", r), cmd.GetLine(), cmd.GetColumn())
+		func() {
+			defer func() {
+				if r := recover(); r != nil {
+					fmt.Println(cmd.GetType())
+					fmt.Printf("\033[31m-> %s. [%v:%v]\033[0m\n", fmt.Sprintf("%v", r), cmd.GetLine(), cmd.GetColumn())
+				}
+			}()
+			if cmd.GetType() == utils.EXECUTE {
+				cmd.(*commands.Execute).SetParser(c)
 			}
-		}()*/
-		if cmd.GetType() == utils.EXECUTE {
-			cmd.(*commands.Execute).SetParser(c)
-		}
-		cmd.Exec()
-		//}()
+			cmd.Exec()
+		}()
 	}
 }

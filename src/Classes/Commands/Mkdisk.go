@@ -49,8 +49,8 @@ func (m *Mkdisk) Exec() {
 		mbr := structs.NewMBR(units*size, m.GetFit())
 		file.Write(mbr.Encode())
 		file.Close()
+		fmt.Printf("\033[96m-> mkdisk: Disco %c creado exitosamente. (%s %sB) [%v:%v]\033[0m\n", env.Asciiletter, m.Params["size"], m.Params["unit"], m.Line, m.Column+1)
 		env.Asciiletter++
-		fmt.Printf("\033[96m-> %v. [%v:%v]\033[0m\n", "mkdisk: Disco creado", m.Line, m.Column+1)
 	} else {
 		fmt.Printf("\033[31m-> Error mkdisk: Faltan parámetros obligatorios. [%v:%v]\033[0m\n", m.Line, m.Column+1)
 	}
@@ -64,8 +64,9 @@ func (m *Mkdisk) ValidateParams() bool {
 }
 
 func (m *Mkdisk) RecalculateUnits() int {
+	m.Params["unit"] = strings.ToUpper(m.Params["unit"])
 	if _, exist := m.Params["unit"]; exist {
-		if strings.ToUpper(m.Params["unit"]) == "K" {
+		if m.Params["unit"] == "K" {
 			return 1024
 		}
 	}
@@ -73,10 +74,11 @@ func (m *Mkdisk) RecalculateUnits() int {
 }
 
 func (m *Mkdisk) GetFit() rune {
-	if strings.ToUpper(m.Params["fit"]) == "FF" {
+	m.Params["fit"] = strings.ToUpper(m.Params["fit"])
+	if m.Params["fit"] == "FF" {
 		return 'F'
 	}
-	if strings.ToUpper(m.Params["fit"]) == "BF" {
+	if m.Params["fit"] == "BF" {
 		return 'B'
 	}
 	return 'W'
