@@ -1,4 +1,5 @@
 # Crea Disco A
-mkdisk -size=8 -unit=K -fit=WF
+mkdisk -size=10 -unit=M -fit=WF
+fdisk -size=5 -driveletter=A -name=Particion1
 rmdisk -driveletter=A
 rep -name=mbr -id=A123
