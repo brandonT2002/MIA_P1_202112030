@@ -26,6 +26,7 @@ func main() {
 		if strings.ToLower(input) != "exit" {
 			call := callparser.CallParser{}
 			call.ExecutionParser(input)
+			println()
 			continue
 		}
 		break

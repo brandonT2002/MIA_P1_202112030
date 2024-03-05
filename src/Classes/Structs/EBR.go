@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
+	utils "mia/Classes/Utils"
 	"unicode/utf8"
 )
 
@@ -16,8 +17,15 @@ type EBR struct {
 	Name  string // 16 bytes
 } // 30 bytes
 
-func NewEBR() *EBR {
-	return &EBR{}
+func NewEBR(fit rune, start, size int, name string) *EBR {
+	return &EBR{
+		Mount: '0',
+		Fit:   fit,
+		Start: start,
+		Size:  size,
+		Next:  -1,
+		Name:  name,
+	}
 }
 
 func (e *EBR) Encode() []byte {
@@ -64,9 +72,12 @@ func DecodeEBR(data []byte) *EBR {
 	size := int(binary.BigEndian.Uint32(data[6:10]))
 	// Next
 	next := int(binary.BigEndian.Uint32(data[10:14]))
+	if next == 0 {
+		next = -1
+	}
 	// Name
 	name := string(data[14:])
-	return &EBR{mount, fit, start, size, next, name}
+	return &EBR{mount, fit, start, size, next, utils.ClearString(name)}
 }
 
 func (e *EBR) ToString() string {

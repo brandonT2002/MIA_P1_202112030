@@ -19,7 +19,7 @@ type MBR struct {
 
 func NewMBR(size int, fit rune) *MBR {
 	rand.Seed(time.Now().UnixNano())
-	return &MBR{size, time.Now(), rand.Intn(10001), fit, make([]*Partition, 4)}
+	return &MBR{size, time.Now(), rand.Intn(10001), fit, []*Partition{{Status: '-'}, {Status: '-'}, {Status: '-'}, {Status: '-'}}}
 }
 
 func (m *MBR) Encode() []byte {
@@ -68,7 +68,7 @@ func DecodeMBR(data []byte) *MBR {
 	// Partitions
 	partitions := []*Partition{
 		DecodePartition(data[13:48]),
-		DecodePartition(data[35:83]),
+		DecodePartition(data[48:83]),
 		DecodePartition(data[83:118]),
 		DecodePartition(data[118:]),
 	}
