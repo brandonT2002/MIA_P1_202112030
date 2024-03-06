@@ -32,7 +32,7 @@ func (c *Commentary) GetType() utils.Type {
 func (c *Commentary) Exec() {
 	re := regexp.MustCompile(`#\s*`)
 	c.Result = re.ReplaceAllString(c.Result, "")
-	fmt.Printf("   %v. [%v:%v]\n", c.Result, c.Line, c.Column+1)
+	fmt.Printf("-> %v. [%v:%v]\n", c.Result, c.Line, c.Column+1)
 }
 
 func (c *Commentary) GetResult() string { return "" }
