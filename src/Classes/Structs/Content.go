@@ -8,7 +8,7 @@ import (
 
 type Content struct {
 	Name  string // 12 bytes
-	Inode int    // 4 bytes
+	Inode int32  // 4 bytes
 } // 16 bytes
 
 func (c *Content) Encode() []byte {
@@ -32,7 +32,7 @@ func DecodeContent(data []byte) *Content {
 	// Name
 	name := string(data[:12])
 	// Inode
-	inode := int(binary.BigEndian.Uint32(data[12:16]))
+	inode := int32(binary.BigEndian.Uint32(data[12:16]))
 	return &Content{name, inode}
 }
 

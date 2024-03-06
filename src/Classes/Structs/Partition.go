@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
+	utils "mia/Classes/Utils"
 	"unicode/utf8"
 )
 
@@ -17,6 +18,10 @@ type Partition struct {
 	Correlative int    // 4 bytes
 	Id          string // 4 bytes
 } // 35 bytes
+
+func NewPartition(status, type_, fit rune, start, size int, name string, correlative int) *Partition {
+	return &Partition{Status: status, Type: type_, Fit: fit, Start: start, Size: size, Name: name, Correlative: correlative}
+}
 
 func (p *Partition) Encode(flag bool) []byte {
 	if flag {
@@ -79,9 +84,9 @@ func DecodePartition(data []byte) *Partition {
 	correlative := int(binary.BigEndian.Uint32(data[27:31]))
 	// Id
 	id := string(data[31:])
-	return &Partition{status, type_, fit, start, size, name, correlative, id}
+	return &Partition{status, type_, fit, start, size, utils.ClearString(name), correlative, utils.ClearString(id)}
 }
 
 func (p *Partition) ToString() string {
-	return fmt.Sprintf("\n\tStart: %-10d Fit: %v Size: %-10d Name: %s", p.Start, p.Fit, p.Size, p.Name)
+	return fmt.Sprintf("\n\tStart: %-10d Status: %c Size: %-10d Name: %s", p.Start, p.Status, p.Size, p.Name)
 }

@@ -15,10 +15,22 @@ type Inode struct {
 	Atime time.Time // 4 bytes
 	Ctime time.Time // 4 bytes
 	Mtime time.Time // 4 bytes
-	Block []int     // 60 bytes
+	Block []int32   // 60 bytes
 	Type  rune      // 1 byte
 	Perm  []rune    // 3 bytes
 } // 88 bytes
+
+func NewInode(Type rune, Size int) *Inode {
+	return &Inode{
+		Uid:   1,
+		Gid:   1,
+		Size:  Size,
+		Ctime: time.Now(),
+		Block: []int32{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+		Type:  Type,
+		Perm:  []rune{'7', '7', '7'},
+	}
+}
 
 func (i *Inode) Encode() []byte {
 	var buf bytes.Buffer
@@ -90,9 +102,9 @@ func DecodeInode(data []byte) *Inode {
 	unixTime = binary.BigEndian.Uint32(data[20:24])
 	mtime := time.Unix(int64(unixTime), 0)
 	// Block
-	block := []int{}
+	block := []int32{}
 	for i := 0; i < 15; i++ {
-		block = append(block, int(binary.BigEndian.Uint32(data[24+i*4:28+i*4])))
+		block = append(block, int32(binary.BigEndian.Uint32(data[24+i*4:28+i*4])))
 	}
 	// Type
 	type_, _ := utf8.DecodeRune(data[84:85])
@@ -104,6 +116,27 @@ func DecodeInode(data []byte) *Inode {
 	p, _ = utf8.DecodeRune(data[87:])
 	perm = append(perm, p)
 	return &Inode{uid, gid, size, atime, ctime, mtime, block, type_, perm}
+}
+
+func (i *Inode) getDot(index int32) string {
+	apuntadores := ""
+	color := ""
+	for p := 0; p < 12; p++ {
+		apuntadores += fmt.Sprintf("\n\t\t\t<TR><TD>apt%v</TD><TD port=\"A%v\">%v</TD></TR>", p+1, p, i.Block[p])
+	}
+	for p := 12; p < 15; p++ {
+		apuntadores += fmt.Sprintf("\n\t\t\t<TR><TD BGCOLOR=\"#FFBBB1\">apt%v</TD><TD port=\"A%v\">%v</TD></TR>", p+1, p, i.Block[p])
+	}
+	if i.Type == '0' {
+		color = "#C1E4F7"
+	} else {
+		color = "#7AB648"
+	}
+	return fmt.Sprintf(`inode%v[label=<
+	<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+		<TR><TD COLSPAN="2" BGCOLOR="%v" PORT="I%v">Inodo %v</TD></TR>%v
+	</TABLE>
+>];`, index, color, index, index, apuntadores)
 }
 
 func (i *Inode) ToString() string {
