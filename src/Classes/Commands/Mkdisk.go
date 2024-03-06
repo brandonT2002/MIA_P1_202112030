@@ -36,7 +36,7 @@ func (m *Mkdisk) GetType() utils.Type {
 
 func (m *Mkdisk) Exec() {
 	if m.ValidateParams() {
-		file, _ := os.Create(fmt.Sprintf("../../Discos/%c.dsk", env.Asciiletter))
+		file, _ := os.Create(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%c.dsk", env.Asciiletter))
 		units := m.RecalculateUnits()
 		size, _ := strconv.Atoi(m.Params["size"])
 		for i := 0; i < size; i++ {
@@ -44,9 +44,16 @@ func (m *Mkdisk) Exec() {
 			file.Write(byte)
 		}
 		file.Close()
-		file, _ = os.OpenFile(fmt.Sprintf("../../Discos/%c.dsk", env.Asciiletter), os.O_RDWR, 0644)
+		file, _ = os.OpenFile(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%c.dsk", env.Asciiletter), os.O_RDWR, 0644)
 		file.Seek(0, 0)
 		mbr := structs.NewMBR(units*size, m.GetFit())
+		env.Disks[fmt.Sprintf("%c", env.Asciiletter)] = &env.DiscoData{
+			Ids:    map[string]*env.PartData{},
+			NextId: 1,
+		}
+		// for _, p := range mbr.Partitions {
+		// 	fmt.Println(p.ToString())
+		// }
 		file.Write(mbr.Encode())
 		file.Close()
 		fmt.Printf("\033[96m-> mkdisk: Disco %c creado exitosamente. (%s %sB) [%v:%v]\033[0m\n", env.Asciiletter, m.Params["size"], m.Params["unit"], m.Line, m.Column+1)
