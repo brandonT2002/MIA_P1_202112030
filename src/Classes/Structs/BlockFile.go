@@ -3,6 +3,7 @@ package structs
 import (
 	"bytes"
 	"fmt"
+	"strings"
 )
 
 type BlockFile struct {
@@ -27,6 +28,32 @@ func (b *BlockFile) Encode() []byte {
 
 func DecodeBlockFile(data []byte) *BlockFile {
 	return &BlockFile{string(data[:64])}
+}
+
+func (b *BlockFile) GetDot(i int) string {
+	content := strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(b.Content, "\n", "\\n"), "\"", "\\\""), "'", "\\'")
+
+	return fmt.Sprintf(`block%v[label=<
+	<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+		<TR><TD BGCOLOR="#FFECA9" PORT="B%v">Bloque %v</TD></TR>
+		<TR><TD>%v</TD></TR>
+	</TABLE>
+>];`, i, i, i, content)
+}
+
+func (b *BlockFile) GetDotB(i int) string {
+	content := ""
+	for r, c := range []rune(strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(b.Content, "\n", "\\n"), "\"", "\\\""), "'", "\\'")) {
+		content += string(c)
+		if r%8 == 7 {
+			content += "<BR/>"
+		}
+	}
+	return fmt.Sprintf(`
+		n%v[label = <<TABLE BORDER="0">
+		<TR><TD>Bloque Archivo %v</TD></TR>
+		<TR><TD><FONT FACE="Consolas">%v</FONT></TD></TR>
+	</TABLE>>];`, i, i, content)
 }
 
 func (b *BlockFile) ToString() string {
