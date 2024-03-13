@@ -87,6 +87,78 @@ func (s *BaseParserListener) EnterFdiskparam(ctx *FdiskparamContext) {}
 // ExitFdiskparam is called when production fdiskparam is exited.
 func (s *BaseParserListener) ExitFdiskparam(ctx *FdiskparamContext) {}
 
+// EnterMount is called when production mount is entered.
+func (s *BaseParserListener) EnterMount(ctx *MountContext) {}
+
+// ExitMount is called when production mount is exited.
+func (s *BaseParserListener) ExitMount(ctx *MountContext) {}
+
+// EnterMountparams is called when production mountparams is entered.
+func (s *BaseParserListener) EnterMountparams(ctx *MountparamsContext) {}
+
+// ExitMountparams is called when production mountparams is exited.
+func (s *BaseParserListener) ExitMountparams(ctx *MountparamsContext) {}
+
+// EnterMountparam is called when production mountparam is entered.
+func (s *BaseParserListener) EnterMountparam(ctx *MountparamContext) {}
+
+// ExitMountparam is called when production mountparam is exited.
+func (s *BaseParserListener) ExitMountparam(ctx *MountparamContext) {}
+
+// EnterUnmount is called when production unmount is entered.
+func (s *BaseParserListener) EnterUnmount(ctx *UnmountContext) {}
+
+// ExitUnmount is called when production unmount is exited.
+func (s *BaseParserListener) ExitUnmount(ctx *UnmountContext) {}
+
+// EnterMkfs is called when production mkfs is entered.
+func (s *BaseParserListener) EnterMkfs(ctx *MkfsContext) {}
+
+// ExitMkfs is called when production mkfs is exited.
+func (s *BaseParserListener) ExitMkfs(ctx *MkfsContext) {}
+
+// EnterMkfsparams is called when production mkfsparams is entered.
+func (s *BaseParserListener) EnterMkfsparams(ctx *MkfsparamsContext) {}
+
+// ExitMkfsparams is called when production mkfsparams is exited.
+func (s *BaseParserListener) ExitMkfsparams(ctx *MkfsparamsContext) {}
+
+// EnterMkfsparam is called when production mkfsparam is entered.
+func (s *BaseParserListener) EnterMkfsparam(ctx *MkfsparamContext) {}
+
+// ExitMkfsparam is called when production mkfsparam is exited.
+func (s *BaseParserListener) ExitMkfsparam(ctx *MkfsparamContext) {}
+
+// EnterLogin is called when production login is entered.
+func (s *BaseParserListener) EnterLogin(ctx *LoginContext) {}
+
+// ExitLogin is called when production login is exited.
+func (s *BaseParserListener) ExitLogin(ctx *LoginContext) {}
+
+// EnterLoginparams is called when production loginparams is entered.
+func (s *BaseParserListener) EnterLoginparams(ctx *LoginparamsContext) {}
+
+// ExitLoginparams is called when production loginparams is exited.
+func (s *BaseParserListener) ExitLoginparams(ctx *LoginparamsContext) {}
+
+// EnterLoginparam is called when production loginparam is entered.
+func (s *BaseParserListener) EnterLoginparam(ctx *LoginparamContext) {}
+
+// ExitLoginparam is called when production loginparam is exited.
+func (s *BaseParserListener) ExitLoginparam(ctx *LoginparamContext) {}
+
+// EnterLogout is called when production logout is entered.
+func (s *BaseParserListener) EnterLogout(ctx *LogoutContext) {}
+
+// ExitLogout is called when production logout is exited.
+func (s *BaseParserListener) ExitLogout(ctx *LogoutContext) {}
+
+// EnterPause is called when production pause is entered.
+func (s *BaseParserListener) EnterPause(ctx *PauseContext) {}
+
+// ExitPause is called when production pause is exited.
+func (s *BaseParserListener) ExitPause(ctx *PauseContext) {}
+
 // EnterRep is called when production rep is entered.
 func (s *BaseParserListener) EnterRep(ctx *RepContext) {}
 

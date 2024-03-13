@@ -1,4 +1,4 @@
-// Code generated from c:/Users/Jefferson/workspace-Go/src/MIA_P1_202112030/src/Language/Scanner.g4 by ANTLR 4.13.1. DO NOT EDIT.
+// Code generated from /home/jefferson/Escritorio/MIA/MIA_P1_202112030/src/Language/Scanner.g4 by ANTLR 4.13.1. DO NOT EDIT.
 
 package parser
 

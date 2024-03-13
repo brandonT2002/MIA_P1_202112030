@@ -41,6 +41,42 @@ type ParserListener interface {
 	// EnterFdiskparam is called when entering the fdiskparam production.
 	EnterFdiskparam(c *FdiskparamContext)
 
+	// EnterMount is called when entering the mount production.
+	EnterMount(c *MountContext)
+
+	// EnterMountparams is called when entering the mountparams production.
+	EnterMountparams(c *MountparamsContext)
+
+	// EnterMountparam is called when entering the mountparam production.
+	EnterMountparam(c *MountparamContext)
+
+	// EnterUnmount is called when entering the unmount production.
+	EnterUnmount(c *UnmountContext)
+
+	// EnterMkfs is called when entering the mkfs production.
+	EnterMkfs(c *MkfsContext)
+
+	// EnterMkfsparams is called when entering the mkfsparams production.
+	EnterMkfsparams(c *MkfsparamsContext)
+
+	// EnterMkfsparam is called when entering the mkfsparam production.
+	EnterMkfsparam(c *MkfsparamContext)
+
+	// EnterLogin is called when entering the login production.
+	EnterLogin(c *LoginContext)
+
+	// EnterLoginparams is called when entering the loginparams production.
+	EnterLoginparams(c *LoginparamsContext)
+
+	// EnterLoginparam is called when entering the loginparam production.
+	EnterLoginparam(c *LoginparamContext)
+
+	// EnterLogout is called when entering the logout production.
+	EnterLogout(c *LogoutContext)
+
+	// EnterPause is called when entering the pause production.
+	EnterPause(c *PauseContext)
+
 	// EnterRep is called when entering the rep production.
 	EnterRep(c *RepContext)
 
@@ -91,6 +127,42 @@ type ParserListener interface {
 
 	// ExitFdiskparam is called when exiting the fdiskparam production.
 	ExitFdiskparam(c *FdiskparamContext)
+
+	// ExitMount is called when exiting the mount production.
+	ExitMount(c *MountContext)
+
+	// ExitMountparams is called when exiting the mountparams production.
+	ExitMountparams(c *MountparamsContext)
+
+	// ExitMountparam is called when exiting the mountparam production.
+	ExitMountparam(c *MountparamContext)
+
+	// ExitUnmount is called when exiting the unmount production.
+	ExitUnmount(c *UnmountContext)
+
+	// ExitMkfs is called when exiting the mkfs production.
+	ExitMkfs(c *MkfsContext)
+
+	// ExitMkfsparams is called when exiting the mkfsparams production.
+	ExitMkfsparams(c *MkfsparamsContext)
+
+	// ExitMkfsparam is called when exiting the mkfsparam production.
+	ExitMkfsparam(c *MkfsparamContext)
+
+	// ExitLogin is called when exiting the login production.
+	ExitLogin(c *LoginContext)
+
+	// ExitLoginparams is called when exiting the loginparams production.
+	ExitLoginparams(c *LoginparamsContext)
+
+	// ExitLoginparam is called when exiting the loginparam production.
+	ExitLoginparam(c *LoginparamContext)
+
+	// ExitLogout is called when exiting the logout production.
+	ExitLogout(c *LogoutContext)
+
+	// ExitPause is called when exiting the pause production.
+	ExitPause(c *PauseContext)
 
 	// ExitRep is called when exiting the rep production.
 	ExitRep(c *RepContext)
