@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	env "mia/Classes/Env"
 	utils "mia/Classes/Utils"
 	"os"
 )
@@ -32,9 +33,9 @@ func (r *Rmdisk) GetType() utils.Type {
 
 func (r *Rmdisk) Exec() {
 	if r.ValidateParams() {
-		file := os.Remove("/home/jefferson/Escritorio/MIA/P1/" + r.Params["driveletter"] + ".dsk")
+		file := os.Remove(env.GetPath(r.Params["driveletter"]))
 		if file != nil {
-			fmt.Printf("\033[96m-> Error rmdisk: No se puede eliminar disco %s. [%v:%v]\033[0m\n", r.Params["driveletter"], r.Line, r.Column+1)
+			fmt.Printf("\033[31m-> Error rmdisk: No se puede eliminar disco %s. [%v:%v]\033[0m\n", r.Params["driveletter"], r.Line, r.Column+1)
 			return
 		}
 		fmt.Printf("\033[96m-> rmdisk: Disco %s eliminado exitosamente. [%v:%v]\033[0m\n", r.Params["driveletter"], r.Line, r.Column+1)

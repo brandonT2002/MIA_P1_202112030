@@ -77,6 +77,27 @@ type ParserListener interface {
 	// EnterPause is called when entering the pause production.
 	EnterPause(c *PauseContext)
 
+	// EnterMkgrp is called when entering the mkgrp production.
+	EnterMkgrp(c *MkgrpContext)
+
+	// EnterMkusr is called when entering the mkusr production.
+	EnterMkusr(c *MkusrContext)
+
+	// EnterMkuserparams is called when entering the mkuserparams production.
+	EnterMkuserparams(c *MkuserparamsContext)
+
+	// EnterMkuserparam is called when entering the mkuserparam production.
+	EnterMkuserparam(c *MkuserparamContext)
+
+	// EnterMkfile is called when entering the mkfile production.
+	EnterMkfile(c *MkfileContext)
+
+	// EnterMkfileparams is called when entering the mkfileparams production.
+	EnterMkfileparams(c *MkfileparamsContext)
+
+	// EnterMkfileparam is called when entering the mkfileparam production.
+	EnterMkfileparam(c *MkfileparamContext)
+
 	// EnterRep is called when entering the rep production.
 	EnterRep(c *RepContext)
 
@@ -163,6 +184,27 @@ type ParserListener interface {
 
 	// ExitPause is called when exiting the pause production.
 	ExitPause(c *PauseContext)
+
+	// ExitMkgrp is called when exiting the mkgrp production.
+	ExitMkgrp(c *MkgrpContext)
+
+	// ExitMkusr is called when exiting the mkusr production.
+	ExitMkusr(c *MkusrContext)
+
+	// ExitMkuserparams is called when exiting the mkuserparams production.
+	ExitMkuserparams(c *MkuserparamsContext)
+
+	// ExitMkuserparam is called when exiting the mkuserparam production.
+	ExitMkuserparam(c *MkuserparamContext)
+
+	// ExitMkfile is called when exiting the mkfile production.
+	ExitMkfile(c *MkfileContext)
+
+	// ExitMkfileparams is called when exiting the mkfileparams production.
+	ExitMkfileparams(c *MkfileparamsContext)
+
+	// ExitMkfileparam is called when exiting the mkfileparam production.
+	ExitMkfileparam(c *MkfileparamContext)
 
 	// ExitRep is called when exiting the rep production.
 	ExitRep(c *RepContext)

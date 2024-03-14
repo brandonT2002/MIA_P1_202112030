@@ -66,7 +66,7 @@ func (f *Fdisk) Exec() {
 
 func (f *Fdisk) deletePartition() {
 	f.Params["driveletter"] = strings.Replace(f.Params["driveletter"], `"`, "", -1)
-	absolutePath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", f.Params["driveletter"]))
+	absolutePath, _ := filepath.Abs(env.GetPath(f.Params["driveletter"]))
 	file, err := os.OpenFile(absolutePath, os.O_RDONLY, 0644)
 	if err != nil {
 		fmt.Println("-> Error al abrir el archivo:", err)
@@ -224,7 +224,7 @@ func (f *Fdisk) deletePartition() {
 
 func (f *Fdisk) addSpacePartition() {
 	f.Params["driveletter"] = strings.Replace(f.Params["driveletter"], `"`, "", -1)
-	absolutePath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", f.Params["driveletter"]))
+	absolutePath, _ := filepath.Abs(env.GetPath(f.Params["driveletter"]))
 	_, err := os.Stat(absolutePath)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -370,7 +370,7 @@ func (f *Fdisk) createPartition() {
 	f.Params["driveletter"] = strings.ReplaceAll(f.Params["driveletter"], `"`, "")
 	f.Params["fit"] = strings.ToUpper(f.Params["fit"])
 	f.Params["type"] = strings.ToUpper(f.Params["type"])
-	absolutePath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", f.Params["driveletter"]))
+	absolutePath, _ := filepath.Abs(env.GetPath(f.Params["driveletter"]))
 	_, err := os.Stat(absolutePath)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -488,6 +488,7 @@ func (f *Fdisk) createPartition() {
 			f.printError(fmt.Sprintf("Error fdisk: No hay espacio suficiente para la nueva partición en el disco \"%s\".", baseName))
 		}
 	} else if f.Params["type"] == "L" {
+		println("CREAR PARTICIÓN LÓGICA")
 		i := f.getExtended(mbr.Partitions)
 		size, _ := strconv.Atoi(f.Params["size"])
 		if i != -1 {

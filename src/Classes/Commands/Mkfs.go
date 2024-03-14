@@ -46,7 +46,7 @@ func (m *Mkfs) Exec() {
 func (m *Mkfs) mkfs() {
 	driveletter := string(m.Params["id"][0])
 	if disk, ok := env.Disks[driveletter]; ok {
-		absolutePath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", driveletter))
+		absolutePath, _ := filepath.Abs(env.GetPath(driveletter))
 		if partitionData, ok := disk.Ids[m.Params["id"]]; ok {
 			namePartition := partitionData.Name
 			file, err := os.Open(absolutePath)

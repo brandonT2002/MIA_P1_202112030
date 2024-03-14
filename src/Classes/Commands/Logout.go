@@ -37,7 +37,7 @@ func (l *Logout) GetType() utils.Type {
 func (l *Logout) Exec() {
 	if env.CurrentLogged.User != nil {
 		driveletter := env.CurrentLogged.Driveletter
-		absolutePath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", *driveletter))
+		absolutePath, _ := filepath.Abs(env.GetPath(*driveletter))
 		file, err := os.Open(absolutePath)
 		if err != nil {
 			fmt.Println("Error al abrir el archivo:", err)
@@ -51,9 +51,9 @@ func (l *Logout) Exec() {
 			return
 		}
 		mbr := structs.DecodeMBR(readedBytes)
-		for i := 0; i < len(mbr.Partitions); i++ {
-			if mbr.Partitions[i].Size != 0 && utils.CompareStrings(mbr.Partitions[i].Name, *env.CurrentLogged.Partition) {
-				_, err = file.Seek(int64(mbr.Partitions[i].Start), 0)
+		for _, p := range mbr.Partitions {
+			if p.Size != 0 && utils.CompareStrings(p.Name, *env.CurrentLogged.Partition) {
+				_, err = file.Seek(int64(p.Start), 0)
 				if err != nil {
 					fmt.Println("Error al mover el puntero del archivo:", err)
 					return
@@ -66,21 +66,21 @@ func (l *Logout) Exec() {
 				}
 				superBlock := structs.DecodeSuperBlock(superBlockData)
 				if superBlock.Filesystem_type == 3 {
-					_, err = file.Seek(int64(mbr.Partitions[i].Start+68), 0)
+					_, err = file.Seek(int64(p.Start+structs.SizeOfSuperBlock()), 0)
 					if err != nil {
 						fmt.Println("Error al mover el puntero del archivo:", err)
 						return
 					}
 					for r := 0; r < superBlock.Inodes_count; r++ {
-						journalData := make([]byte, 212)
+						journalData := make([]byte, structs.SizeOfJournal())
 						_, err = file.Read(journalData)
 						if err != nil {
 							fmt.Println("Error al leer el super block:", err)
 							return
 						}
-						if string(journalData) == strings.Repeat("\x00", 212) {
+						if string(journalData) == strings.Repeat("\x00", structs.SizeOfJournal()) {
 							var file1, err = os.OpenFile(absolutePath, os.O_WRONLY|os.O_CREATE, 0644)
-							_, err = file1.Seek(int64(mbr.Partitions[i].Start+structs.SizeOfSuperBlock()+r*structs.SizeOfJournal()), 0)
+							_, err = file1.Seek(int64(p.Start+structs.SizeOfSuperBlock()+r*structs.SizeOfJournal()), 0)
 							if err != nil {
 								fmt.Println("Error al mover el puntero del archivo:", err)
 								return

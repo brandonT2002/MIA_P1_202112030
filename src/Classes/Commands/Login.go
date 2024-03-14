@@ -48,7 +48,7 @@ func (l *Login) login() {
 		var driveletter = string(l.Params["id"][0])
 		if disk, ok := env.Disks[driveletter]; ok {
 			if part, ok := disk.Ids[l.Params["id"]]; ok {
-				var diskPath, _ = filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", driveletter))
+				var diskPath, _ = filepath.Abs(env.GetPath(driveletter))
 				var absolutePath, _ = filepath.Abs(diskPath)
 				var namePartition = part.Name
 				var file, err = os.Open(absolutePath)
@@ -79,7 +79,7 @@ func (l *Login) login() {
 						}
 						var superBlock = structs.DecodeSuperBlock(superBlockData)
 						var tree = structs.NewTree(*superBlock, *file)
-						var content, founded = tree.ReadFile("users.txt")
+						var content, founded = tree.ReadFile("/users.txt")
 						if founded {
 							var user = l.isValidUser(content, l.Params["user"], l.Params["pass"])
 							if user != nil {
@@ -89,13 +89,13 @@ func (l *Login) login() {
 								var id = l.Params["id"]
 								env.CurrentLogged.IDPart = &id
 								if superBlock.Filesystem_type == 3 {
-									_, err = file.Seek(int64(p.Start+68), 0)
+									_, err = file.Seek(int64(p.Start+structs.SizeOfSuperBlock()), 0)
 									if err != nil {
 										fmt.Println("Error al mover el puntero del archivo:", err)
 										return
 									}
 									for r := 0; r < superBlock.Inodes_count; r++ {
-										journalData := make([]byte, 212)
+										journalData := make([]byte, structs.SizeOfJournal())
 										_, err = file.Read(journalData)
 										if err != nil {
 											fmt.Println("Error al leer el super block:", err)
@@ -162,7 +162,6 @@ func (l *Login) getUsers(content string) []*structs.User {
 			registers = append(registers, register)
 		}
 	}
-	// fmt.Println(registers)
 	for _, reg := range registers {
 		if reg[1] == "U" && reg[0] != "0" {
 			users = append(users, structs.NewUser(reg[0], reg[2], reg[3], reg[4]))
@@ -170,18 +169,6 @@ func (l *Login) getUsers(content string) []*structs.User {
 	}
 	return users
 }
-
-// func (l *Login) getUsers(content string) []*structs.User {
-// 	var users = []*structs.User{}
-// 	registers := strings.Split(content, "\n")
-// 	for _, reg := range registers {
-// 		fields := strings.Split(strings.TrimSpace(reg), ",")
-// 		if len(fields) >= 5 && utils.CompareStrings(fields[1], "U") && utils.CompareStrings(fields[0], "0") {
-// 			users = append(users, structs.NewUser(string(reg[0]), string(reg[2]), string(reg[3]), string(reg[4])))
-// 		}
-// 	}
-// 	return users
-// }
 
 func (l *Login) validateParams() bool {
 	_, userExist := l.Params["user"]

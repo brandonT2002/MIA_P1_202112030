@@ -6,7 +6,6 @@ import (
 	structs "mia/Classes/Structs"
 	utils "mia/Classes/Utils"
 	"os"
-	"path"
 	"path/filepath"
 	"strings"
 )
@@ -49,7 +48,7 @@ func (m *Mount) Exec() {
 
 func (m *Mount) mount() {
 	m.Params["driveletter"] = strings.ReplaceAll(m.Params["driveletter"], `"`, "")
-	absolutePath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", m.Params["driveletter"]))
+	absolutePath, _ := filepath.Abs(env.GetPath(m.Params["driveletter"]))
 	if _, err := os.Stat(absolutePath); os.IsNotExist(err) {
 		m.printError(fmt.Sprintf("Error mount: No existe el disco %s para montar la partición", m.Params["driveletter"]))
 		return
@@ -87,13 +86,13 @@ func (m *Mount) mount() {
 					return
 				}
 				thisDisk := env.Disks[m.Params["driveletter"]]
-				newID := fmt.Sprintf("%s%d30", strings.Split(path.Base(absolutePath), ".")[0], thisDisk.NextId)
+				newID := fmt.Sprintf("%s%d30", m.Params["driveletter"], thisDisk.NextId)
 				thisDisk.Ids[newID] = &env.PartData{
 					Name:   m.Params["name"],
 					Mkdirs: []string{},
 				}
 				thisDisk.NextId++
-				m.printSuccess(filepath.Base(absolutePath)[:len(filepath.Base(absolutePath))-len(filepath.Ext(absolutePath))], m.Params["name"], newID, string(mbr.Partitions[i].Type))
+				m.printSuccess(m.Params["driveletter"], m.Params["name"], newID, string(mbr.Partitions[i].Type))
 				return
 			}
 			m.printError(fmt.Sprintf("\033[33mError mount: Intenta montar la partición en el disco \"%s\" que ya estpa montada\033[0m", strings.Split(filepath.Base(absolutePath), ".")[0]))
@@ -129,7 +128,7 @@ func (m *Mount) mount() {
 						Mkdirs: []string{},
 					}
 					thisDisk.NextId++
-					m.printSuccess(filepath.Base(absolutePath)[:len(filepath.Base(absolutePath))-len(filepath.Ext(absolutePath))], m.Params["name"], newID, "L")
+					m.printSuccess(m.Params["driveletter"], m.Params["name"], newID, "L")
 					return
 				}
 				m.printError(fmt.Sprintf("\033[33mError mount: Intenta montar la partición en el disco \"%s\" que ya estpa montada\033[0m", strings.Split(filepath.Base(absolutePath), ".")[0]))

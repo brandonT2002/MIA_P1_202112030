@@ -32,6 +32,8 @@ command returns[interfaces.Command result] :
     c7 = mkfs    {$result = $c7.result}      |
     c8 = login   {$result = $c8.result}      |
     c9 = logout  {$result = $c9.result}      |
+    c10 = mkgrp  {$result = $c10.result}     |
+    c11 = mkusr  {$result = $c11.result}     |
     c19 = pause  {$result = $c19.result}     |
     c20 = rep    {$result = $c20.result}     |
     c21 = commentary {$result = $c21.result} |
@@ -134,6 +136,40 @@ logout returns [*commands.Logout result] :
 // === PAUSE ===
 pause returns [*commands.Pause result] :
     p = RW_pause {$result = commands.NewPause($p.line, $p.pos)} ;
+
+// ======
+mkgrp returns [*commands.Mkgrp result]:
+    m = RW_mkgrp RW_name TK_equ v = TK_id {$result = commands.NewMkgrp($m.line, $m.pos, map[string]string{"name": $v.text})} |
+    m = RW_mkgrp                          {$result = commands.NewMkgrp($m.line, $m.pos, map[string]string{})} ;
+
+// =========
+mkusr returns [*commands.Mkusr result]:
+    m = RW_mkusr p = mkuserparams {$result = commands.NewMkusr($m.line, $m.pos, $p.result)} |
+    m = RW_mkusr                  {$result = commands.NewMkusr($m.line, $m.pos, map[string]string{})} ;
+
+mkuserparams returns[map[string]string result]:
+    l = mkuserparams p = mkuserparam {$result = $l.result;; $result[$p.result[0]] = $p.result[1]} |
+    p = mkuserparam                  {$result = map[string]string{$p.result[0]: $p.result[1]}} ;
+
+mkuserparam returns [[]string result]:
+    RW_user TK_equ v1 = TK_id {$result = []string{"user", $v1.text}} |
+    RW_pass TK_equ v2 = TK_id {$result = []string{"pass", $v2.text}} |
+    RW_grp  TK_equ v3 = TK_id {$result = []string{"grp",  $v3.text}} ;
+
+// ===========
+mkfile returns [*commands.Mkfile result]:
+    m = RW_mkfile p = mkfileparams {$result = commands.NewMkfile($m.line, $m.pos, $p.result)} |
+    m = RW_mkfile              {$result = commands.NewMkfile($m.line, $m.pos, map[string]string{})} ;
+
+mkfileparams returns [map[string]string result]:
+    l = mkfileparams p = mkfileparam {$result = $l.result;; $result[$p.result[0]] = $p.result[1]} |
+    p = mkfileparam                  {$result = map[string]string{"r": "0", $p.result[0]: $p.result[1]}} ;   
+
+mkfileparam returns [[]string result]:
+    RW_path TK_equ v1 = TK_path   {$result = []string{"path", $v1.text}}|
+    RW_size TK_equ v2 = TK_number {$result = []string{"size", $v2.text}}|
+    RW_cont TK_equ v3 = TK_path   {$result = []string{"cont", $v3.text}}|
+    RW_r                   {$result = []string{"r", "1"}};
 
 // === REP ===
 rep returns[*commands.Rep result] :

@@ -87,7 +87,7 @@ func (r *Rep) Exec() {
 func (r *Rep) reportMBR() {
 	driveletter := string(r.Params["id"][0])
 	if _, ok := env.Disks[driveletter]; ok {
-		diskPath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", driveletter))
+		diskPath, _ := filepath.Abs(env.GetPath(driveletter))
 		absolutePath, _ := filepath.Abs(diskPath)
 		file, err := os.Open(absolutePath)
 		if err != nil {
@@ -147,7 +147,7 @@ func (r *Rep) reportMBR() {
 func (r *Rep) reportDisk() {
 	driveletter := string(r.Params["id"][0])
 	if _, ok := env.Disks[driveletter]; ok {
-		diskPath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", driveletter))
+		diskPath, _ := filepath.Abs(env.GetPath(driveletter))
 		absolutePath, _ := filepath.Abs(diskPath)
 		file, err := os.Open(absolutePath)
 		if err != nil {
@@ -251,7 +251,7 @@ func (r *Rep) reportInode() {
 	if disk, ok := env.Disks[driveletter]; ok {
 		if partitionData, ok := disk.Ids[r.Params["id"]]; ok {
 			namePartition := partitionData.Name
-			diskPath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", driveletter))
+			diskPath, _ := filepath.Abs(env.GetPath(driveletter))
 			absolutePath, _ := filepath.Abs(diskPath)
 			file, err := os.Open(absolutePath)
 			if err != nil {
@@ -346,7 +346,7 @@ func (r *Rep) reportBlock() {
 	if disk, ok := env.Disks[driveletter]; ok {
 		if partitionData, ok := disk.Ids[r.Params["id"]]; ok {
 			namePartition := partitionData.Name
-			diskPath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", driveletter))
+			diskPath, _ := filepath.Abs(env.GetPath(driveletter))
 			absolutePath, _ := filepath.Abs(diskPath)
 			file, err := os.Open(absolutePath)
 			if err != nil {
@@ -408,7 +408,7 @@ func (r *Rep) reportJournaling() {
 	if disk, ok := env.Disks[driveletter]; ok {
 		if partitionData, ok := disk.Ids[r.Params["id"]]; ok {
 			namePartition := partitionData.Name
-			diskPath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", driveletter))
+			diskPath, _ := filepath.Abs(env.GetPath(driveletter))
 			absolutePath, _ := filepath.Abs(diskPath)
 			file, err := os.Open(absolutePath)
 			if err != nil {
@@ -480,7 +480,7 @@ func (r *Rep) reportBMInode() {
 	if disk, ok := env.Disks[driveletter]; ok {
 		if partitionData, ok := disk.Ids[r.Params["id"]]; ok {
 			namePartition := partitionData.Name
-			diskPath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", driveletter))
+			diskPath, _ := filepath.Abs(env.GetPath(driveletter))
 			absolutePath, _ := filepath.Abs(diskPath)
 			file, err := os.Open(absolutePath)
 			if err != nil {
@@ -557,7 +557,7 @@ func (r *Rep) reportBMBlock() {
 	if disk, ok := env.Disks[driveletter]; ok {
 		if partitionData, ok := disk.Ids[r.Params["id"]]; ok {
 			namePartition := partitionData.Name
-			diskPath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", driveletter))
+			diskPath, _ := filepath.Abs(env.GetPath(driveletter))
 			absolutePath, _ := filepath.Abs(diskPath)
 			file, err := os.Open(absolutePath)
 			if err != nil {
@@ -634,7 +634,7 @@ func (r *Rep) reportTree() {
 	if disk, ok := env.Disks[driveletter]; ok {
 		if partitionData, ok := disk.Ids[r.Params["id"]]; ok {
 			namePartition := partitionData.Name
-			diskPath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", driveletter))
+			diskPath, _ := filepath.Abs(env.GetPath(driveletter))
 			absolutePath, _ := filepath.Abs(diskPath)
 			file, err := os.Open(absolutePath)
 			if err != nil {
@@ -681,7 +681,7 @@ func (r *Rep) reportSb() {
 	if disk, ok := env.Disks[driveletter]; ok {
 		if partitionData, ok := disk.Ids[r.Params["id"]]; ok {
 			namePartition := partitionData.Name
-			diskPath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", driveletter))
+			diskPath, _ := filepath.Abs(env.GetPath(driveletter))
 			absolutePath, _ := filepath.Abs(diskPath)
 			file, err := os.Open(absolutePath)
 			if err != nil {
@@ -752,7 +752,7 @@ func (r *Rep) reportFile() {
 	if disk, ok := env.Disks[driveletter]; ok {
 		if partitionData, ok := disk.Ids[r.Params["id"]]; ok {
 			namePartition := partitionData.Name
-			diskPath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", driveletter))
+			diskPath, _ := filepath.Abs(env.GetPath(driveletter))
 			absolutePath, _ := filepath.Abs(diskPath)
 			file, err := os.Open(absolutePath)
 			if err != nil {
@@ -846,6 +846,7 @@ func (r *Rep) generateFile(dot, diskname string) {
 		fmt.Println("Error al escribir en el archivo:", err)
 		return
 	}
+	file.Close()
 	cmd := exec.Command("dot", "-T"+extension[1:], absolutePathDot, "-o", absolutePath)
 	err = cmd.Run()
 	if err != nil {

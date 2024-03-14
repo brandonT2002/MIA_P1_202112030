@@ -50,7 +50,7 @@ func (u *Unmount) unmount() {
 	// 	return
 	// }
 	if disk, ok := env.Disks[driveletter]; ok {
-		absolutePath, _ := filepath.Abs(fmt.Sprintf("/home/jefferson/Escritorio/MIA/P1/%s.dsk", driveletter))
+		absolutePath, _ := filepath.Abs(env.GetPath(driveletter))
 		if disk.Ids[u.Params["id"]] != nil {
 			namePartition := disk.Ids[u.Params["id"]].Name
 			file, err := os.Open(absolutePath)

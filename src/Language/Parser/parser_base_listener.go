@@ -159,6 +159,48 @@ func (s *BaseParserListener) EnterPause(ctx *PauseContext) {}
 // ExitPause is called when production pause is exited.
 func (s *BaseParserListener) ExitPause(ctx *PauseContext) {}
 
+// EnterMkgrp is called when production mkgrp is entered.
+func (s *BaseParserListener) EnterMkgrp(ctx *MkgrpContext) {}
+
+// ExitMkgrp is called when production mkgrp is exited.
+func (s *BaseParserListener) ExitMkgrp(ctx *MkgrpContext) {}
+
+// EnterMkusr is called when production mkusr is entered.
+func (s *BaseParserListener) EnterMkusr(ctx *MkusrContext) {}
+
+// ExitMkusr is called when production mkusr is exited.
+func (s *BaseParserListener) ExitMkusr(ctx *MkusrContext) {}
+
+// EnterMkuserparams is called when production mkuserparams is entered.
+func (s *BaseParserListener) EnterMkuserparams(ctx *MkuserparamsContext) {}
+
+// ExitMkuserparams is called when production mkuserparams is exited.
+func (s *BaseParserListener) ExitMkuserparams(ctx *MkuserparamsContext) {}
+
+// EnterMkuserparam is called when production mkuserparam is entered.
+func (s *BaseParserListener) EnterMkuserparam(ctx *MkuserparamContext) {}
+
+// ExitMkuserparam is called when production mkuserparam is exited.
+func (s *BaseParserListener) ExitMkuserparam(ctx *MkuserparamContext) {}
+
+// EnterMkfile is called when production mkfile is entered.
+func (s *BaseParserListener) EnterMkfile(ctx *MkfileContext) {}
+
+// ExitMkfile is called when production mkfile is exited.
+func (s *BaseParserListener) ExitMkfile(ctx *MkfileContext) {}
+
+// EnterMkfileparams is called when production mkfileparams is entered.
+func (s *BaseParserListener) EnterMkfileparams(ctx *MkfileparamsContext) {}
+
+// ExitMkfileparams is called when production mkfileparams is exited.
+func (s *BaseParserListener) ExitMkfileparams(ctx *MkfileparamsContext) {}
+
+// EnterMkfileparam is called when production mkfileparam is entered.
+func (s *BaseParserListener) EnterMkfileparam(ctx *MkfileparamContext) {}
+
+// ExitMkfileparam is called when production mkfileparam is exited.
+func (s *BaseParserListener) ExitMkfileparam(ctx *MkfileparamContext) {}
+
 // EnterRep is called when production rep is entered.
 func (s *BaseParserListener) EnterRep(ctx *RepContext) {}
 
